@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const allDir = fs.readdirSync(path.resolve(__dirname, "audio"));
 
-let songList = [];
+let songList = {};
 allDir.forEach((dirName) => {
   const p = path.resolve(__dirname, "audio", dirName);
   if (fs.statSync(p).isDirectory()) {
@@ -20,7 +20,9 @@ allDir.forEach((dirName) => {
         cover: `https://cdn.jsdelivr.net/gh/bywj94/song@main/audio/${dirName}/cover.jpg`,
       };
     });
-    songList = songList.concat(list);
+    const year = dirName.split(' ')[0];
+    songList[year] = list;
+    // songList = songList.concat(list);
   }
 });
 
